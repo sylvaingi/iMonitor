@@ -83,7 +83,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 7;
+    return 3;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
@@ -101,14 +101,25 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
     }
     
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease] ;
+	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+	[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];	
+	
 	NSDictionary *service = [self.servicesHotes objectAtIndex:indexPath.section];
 	switch (indexPath.row) {
 		case 0:
 			cell.detailTextLabel.text = [service objectForKey:@"plugin_output"];
 			cell.textLabel.text = @"Plugin output";
 			break;
-		default:
-			cell.textLabel.text = @"Filler";
+		case 1:
+			cell.textLabel.text = @"Last check";
+			NSDate* lastCheck = [NSDate dateWithTimeIntervalSince1970: [[service objectForKey:@"last_check"] intValue]];
+			cell.detailTextLabel.text = [dateFormatter stringFromDate:lastCheck];
+			break;
+		case 2:
+			cell.textLabel.text = @"Last change";
+			NSDate* lastChange = [NSDate dateWithTimeIntervalSince1970: [[service objectForKey:@"last_state_change"] intValue]];
+			cell.detailTextLabel.text = [dateFormatter stringFromDate:lastChange];
 			break;
 	}
     
