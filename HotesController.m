@@ -203,6 +203,7 @@
 
 - (void)dealloc {
     [super dealloc];
+	[hotes release];
 }
 
 
