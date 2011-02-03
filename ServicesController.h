@@ -10,7 +10,11 @@
 
 
 @interface ServicesController : UITableViewController {
-
+	NSDictionary* services;
+	NSArray* servicesNames;
 }
+
+@property(nonatomic,retain) NSDictionary* services;
+@property(nonatomic,retain) NSArray* servicesNames;
 
 @end

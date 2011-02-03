@@ -18,6 +18,7 @@
 		E129495F12F46568009FF7BD /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = E129495E12F46568009FF7BD /* check.png */; };
 		E129496112F46572009FF7BD /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = E129496012F46572009FF7BD /* cross.png */; };
 		E129497D12F46979009FF7BD /* HoteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E129497C12F46979009FF7BD /* HoteDetailsController.m */; };
+		E130526412FABDEE00906CA8 /* ServiceDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E130526312FABDEE00906CA8 /* ServiceDetailsController.m */; };
 		E1D3354E12EB399100A01A03 /* HTTPNagiosClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D3354D12EB399100A01A03 /* HTTPNagiosClient.m */; };
 		E1D3358312EB48EF00A01A03 /* TacController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D3358112EB48EF00A01A03 /* TacController.m */; };
 		E1D3358412EB48EF00A01A03 /* TacController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1D3358212EB48EF00A01A03 /* TacController.xib */; };
@@ -42,6 +43,8 @@
 		E129496012F46572009FF7BD /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
 		E129497B12F46979009FF7BD /* HoteDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoteDetailsController.h; sourceTree = "<group>"; };
 		E129497C12F46979009FF7BD /* HoteDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HoteDetailsController.m; sourceTree = "<group>"; };
+		E130526212FABDEE00906CA8 /* ServiceDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceDetailsController.h; sourceTree = "<group>"; };
+		E130526312FABDEE00906CA8 /* ServiceDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceDetailsController.m; sourceTree = "<group>"; };
 		E1D3354C12EB399100A01A03 /* HTTPNagiosClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPNagiosClient.h; path = Classes/HTTPNagiosClient.h; sourceTree = "<group>"; };
 		E1D3354D12EB399100A01A03 /* HTTPNagiosClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPNagiosClient.m; path = Classes/HTTPNagiosClient.m; sourceTree = "<group>"; };
 		E1D3358012EB48EF00A01A03 /* TacController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TacController.h; path = Classes/TacController.h; sourceTree = "<group>"; };
@@ -88,7 +91,6 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = CustomTemplate;
@@ -134,6 +136,7 @@
 				E12948CF12F45376009FF7BD /* HotesController.m */,
 				E12948D112F45380009FF7BD /* ServicesController.h */,
 				E12948D212F45380009FF7BD /* ServicesController.m */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -161,6 +164,8 @@
 			children = (
 				E129497B12F46979009FF7BD /* HoteDetailsController.h */,
 				E129497C12F46979009FF7BD /* HoteDetailsController.m */,
+				E130526212FABDEE00906CA8 /* ServiceDetailsController.h */,
+				E130526312FABDEE00906CA8 /* ServiceDetailsController.m */,
 			);
 			name = DetailControllers;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 				E12948D012F45376009FF7BD /* HotesController.m in Sources */,
 				E12948D312F45380009FF7BD /* ServicesController.m in Sources */,
 				E129497D12F46979009FF7BD /* HoteDetailsController.m in Sources */,
+				E130526412FABDEE00906CA8 /* ServiceDetailsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

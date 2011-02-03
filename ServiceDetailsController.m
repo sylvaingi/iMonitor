@@ -1,78 +1,48 @@
 //
-//  ServicesController.m
+//  untitled.m
 //  iMonitor
 //
-//  Created by Robert Zboub on 29/01/11.
+//  Created by Sylvain Gizard on 03/02/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "ServicesController.h"
-#import "HTTPNagiosClient.h"
 #import "ServiceDetailsController.h"
+#import "HTTPNagiosClient.h"
 
-@implementation ServicesController
 
-@synthesize services;
-@synthesize servicesNames;
+@implementation ServiceDetailsController
+
+@synthesize servicesHotes;
 
 #pragma mark -
 #pragma mark Initialization
 
-
-- (id)initWithStyle:(UITableViewStyle)style {
+- (id)initWithStyle:(UITableViewStyle)style serviceHosts:(NSArray*)serviceHosts{
+	// Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
     self = [super initWithStyle:style];
     if (self) {
-        self.title = @"Services";
-		self.services = [NSDictionary dictionary];
-		servicesNames = [[NSArray alloc]init];
+		self.servicesHotes = serviceHosts;
+		if([serviceHosts count]>1){
+			self.title = [[serviceHosts objectAtIndex:0] objectForKey:@"service_description"];
+		}
     }
     return self;
 }
 
-
-
 #pragma mark -
 #pragma mark View lifecycle
 
-
+/*
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[self refreshServices];
-	
- 	UIBarButtonItem *refreshButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh 
-																					target:self 
-																					action:@selector(refreshServices)] autorelease];									  
-	self.navigationItem.rightBarButtonItem = refreshButton;
-}
 
--(void) refreshServices {
-	HTTPNagiosClient* client = [[HTTPNagiosClient alloc] init];
-	
-	[client sendRequest:@"cmd=3" delegate:self];
-	
-	[client release];
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
--(void) didReceiveNagiosData:(NSArray*)responseData{
-	NSArray *servicesArray = responseData;
-	NSMutableDictionary* actualServices = [[NSMutableDictionary alloc] init];
-	for (NSDictionary* service in servicesArray) {
-		NSLog(@"%@",service);
-		
-		NSString* serviceName = [service objectForKey:@"service_description"];
-		
-		NSMutableArray* serviceHosts= [actualServices objectForKey:serviceName];
-		if (serviceHosts == nil ) {
-			serviceHosts = [[NSMutableArray alloc] init];
-			[actualServices setObject:serviceHosts forKey:serviceName];
-		}
-		[serviceHosts addObject:service];
-	}
-	self.services = actualServices;
-	self.servicesNames =[services allKeys];
-	[self.tableView reloadData];
-}
-
+*/
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -107,13 +77,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    return [servicesHotes count];
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [services count];
+    return 7;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
+	return [[servicesHotes objectAtIndex:section] objectForKey:@"host_name"];
 }
 
 
@@ -126,37 +100,18 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
     }
-	
-	NSString* serviceName = [servicesNames objectAtIndex:indexPath.row];
-	cell.textLabel.text = serviceName;
-	
-	//State counter
-	int ok = 0;
-	int warning = 0 ;
-	int critical = 0;
-	int unknown = 0;
-	NSArray* serviceHosts = [services objectForKey:serviceName];
-	for (NSDictionary* service in serviceHosts) {
-		switch ([[service objectForKey:@"current_state"] intValue]) {
-			case 0:
-				ok++;
-				break;
-			case 1:
-				warning++;
-				break;
-			case 2:
-				critical++;
-				break;
-			case 3:
-				unknown++;
-				break;
-			default:
-				break;
-		}
+    
+	NSDictionary *service = [self.servicesHotes objectAtIndex:indexPath.section];
+	switch (indexPath.row) {
+		case 0:
+			cell.detailTextLabel.text = [service objectForKey:@"plugin_output"];
+			cell.textLabel.text = @"Plugin output";
+			break;
+		default:
+			cell.textLabel.text = @"Filler";
+			break;
 	}
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"Ok:%d  Warning:%d  Critical:%d Unknown:%d  Total:%d",ok,warning,critical,unknown,ok+warning+critical+unknown];
-	
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
+    
     return cell;
 }
 
@@ -206,9 +161,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-	NSArray* serviceHosts = [self.services objectForKey:[self.servicesNames objectAtIndex:indexPath.row]];
-	ServiceDetailsController* controller = [[[ServiceDetailsController alloc] initWithStyle:UITableViewStyleGrouped serviceHosts:serviceHosts] autorelease];
-	[self.navigationController pushViewController:controller animated:YES];
 }
 
 
@@ -230,7 +182,6 @@
 
 - (void)dealloc {
     [super dealloc];
-	[services release];
 }
 
 
