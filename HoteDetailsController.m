@@ -148,8 +148,14 @@
 					break;
 				case 1:
 					cell.textLabel.text = @"Depuis";
-					NSDate* uptime = [NSDate dateWithTimeIntervalSince1970: [[self.hostDetails objectForKey:@"last_time_up"] intValue]];
-					cell.detailTextLabel.text = [dateFormatter stringFromDate:uptime];
+					int timeStamp = [[self.hostDetails objectForKey:@"last_time_up"] intValue];
+					if (timeStamp != 0) {
+						NSDate* uptime = [NSDate dateWithTimeIntervalSince1970: timeStamp];
+						cell.detailTextLabel.text = [dateFormatter stringFromDate:uptime];
+					}
+					else {
+						cell.detailTextLabel.text = @"N/A";
+					}
 					break;
 			}
 			break;
