@@ -98,7 +98,7 @@
     // Return the number of rows in the section.
     switch (section) {
 		case 0:
-			return 3;
+			return 5;
 		case 1:
 			return 4;
 	}
@@ -157,6 +157,18 @@
 						cell.detailTextLabel.text = @"N/A";
 					}
 					break;
+				case 2:
+					cell.textLabel.text = @"Status detail";
+					cell.detailTextLabel.text = [self.hostDetails objectForKey:@"plugin_output"];
+					break;
+				case 3:
+					cell.textLabel.text = @"Performance data";
+					cell.detailTextLabel.text = [self.hostDetails objectForKey:@"performance_data"];
+					break;
+				case 4:
+					cell.textLabel.text = @"Current attempt";
+					cell.detailTextLabel.text = [NSString stringWithFormat:@"%@/%@",[self.hostDetails objectForKey:@"current_attempt"],
+												 [self.hostDetails objectForKey:@"max_attempts"]];
 			}
 			break;
 		case 1:
@@ -255,6 +267,7 @@
 
 - (void)dealloc {
     [super dealloc];
+	[self.hostDetails release];
 }
 
 

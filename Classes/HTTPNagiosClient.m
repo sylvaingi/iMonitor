@@ -30,7 +30,7 @@
 	}
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response { //action:(SEL)selector {
 	//Reset received data on redirect
     [receivedData setLength:0];
 }

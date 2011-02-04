@@ -13,7 +13,6 @@
 @implementation TacController
 
 
-//@synthesize hostAccessButton;
 @synthesize hostProgress;
 @synthesize hostStatusUp;
 @synthesize hostStatusDown;
@@ -99,6 +98,8 @@
 	[self setDownHostNumber:down];
 	[self setUnreachableHostNumber:unreach];
 	[self setPendingHostNumber:pending];
+	
+	self.hostProgress.progress = ((float)up)/[hosts count];
 }
 
 

@@ -113,12 +113,7 @@
     NSDictionary* hote = [hotes objectAtIndex:indexPath.row];
 	
 	cell.textLabel.text = [hote objectForKey:@"host_name"];
-	
-	NSDate* lastCheck = [NSDate dateWithTimeIntervalSince1970: [[hote objectForKey:@"last_check"] intValue]];
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease] ;
-	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-	[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-	cell.detailTextLabel.text = [dateFormatter stringFromDate:lastCheck];
+	cell.detailTextLabel.text = [hote objectForKey:@"plugin_output"];
     
 	UIImage* statusIcon;
 	if([[hote objectForKey:@"current_state"] isEqualToString:@"0"])

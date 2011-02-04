@@ -11,7 +11,6 @@
 
 @interface TacController : UIViewController {
 	//Hosts
-	UIButton* hostAccessButton;
 	UIProgressView* hostProgress;
 	UILabel* hostStatusUp;
 	UILabel* hostStatusDown;
@@ -31,7 +30,5 @@
 @property(nonatomic,retain) IBOutlet UILabel* hostStatusDown;
 @property(nonatomic,retain) IBOutlet UILabel* hostStatusUnreachable;
 @property(nonatomic,retain) IBOutlet UILabel* hostStatusPending;
-
-- (IBAction)showHosts:(id)sender;
 
 @end
