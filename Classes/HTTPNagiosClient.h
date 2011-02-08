@@ -12,9 +12,10 @@
 @interface HTTPNagiosClient : NSObject {
 	NSMutableData *receivedData;
 	id delegate;
+	SEL successAction;
 }
 
 
-- (void)sendRequest:(NSString*)command delegate:(id)obj;
+- (void)sendRequest:(NSString*)command delegate:(id)obj action:(SEL)successCallback;
 
 @end

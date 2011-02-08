@@ -48,7 +48,7 @@
 -(void) refreshServices {
 	HTTPNagiosClient* client = [[HTTPNagiosClient alloc] init];
 	
-	[client sendRequest:@"cmd=3" delegate:self];
+	[client sendRequest:@"cmd=3" delegate:self action:@selector(didReceiveNagiosData)];
 	
 	[client release];
 }

@@ -11,10 +11,11 @@
 
 @implementation HTTPNagiosClient
 
-- (void)sendRequest:(NSString*)command delegate:(id)obj{
+- (void)sendRequest:(NSString*)command delegate:(id)obj action:(SEL)successCallback{
 	NSLog(@"Sending request to Nagios API");
 	
 	delegate = obj;
+	successAction = successCallback;
 	
 	//Create the request and show the network indicator
 	NSURLRequest *theRequest=[NSURLRequest requestWithURL:
@@ -79,7 +80,7 @@
 	NSLog(@"Received response :\n %@",processedComponents);
 	
 	//Send the success message to the delegate
-	[delegate didReceiveNagiosData:processedComponents];
+	[delegate performSelector:successAction withObject:processedComponents];
 	
 	//Cleanup
 	[response release];

@@ -47,7 +47,7 @@
 - (void)refreshHostStatus{
 	HTTPNagiosClient* client = [[HTTPNagiosClient alloc] init];
 	
-	[client sendRequest:@"cmd=2" delegate:self];
+	[client sendRequest:@"cmd=2" delegate:self action:@selector(didReceiveNagiosData)];
 	
 	[client release];
 }
