@@ -7,28 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TacOverviewController.h"
+#import "TacListController.h"
 
 @interface TacController : UIViewController {
-	//Hosts
-	UIProgressView* hostProgress;
-	UILabel* hostStatusUp;
-	UILabel* hostStatusDown;
-	UILabel* hostStatusUnreachable;
-	UILabel* hostStatusPending;
-	
-	//Services
-	UIButton* serviceAccessButton;
-	UILabel* serviceStatusOk;
-	UILabel* serviceStatusCritical;
-	UILabel* serviceStatusWarning;
-	UILabel* serviceStatusUnknown;
+	TacListController *tacList;
+	TacOverviewController *tacOverview;
 }
-
-@property(nonatomic,retain) IBOutlet UIProgressView* hostProgress;
-@property(nonatomic,retain) IBOutlet UILabel* hostStatusUp;
-@property(nonatomic,retain) IBOutlet UILabel* hostStatusDown;
-@property(nonatomic,retain) IBOutlet UILabel* hostStatusUnreachable;
-@property(nonatomic,retain) IBOutlet UILabel* hostStatusPending;
 
 @end

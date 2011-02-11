@@ -22,7 +22,9 @@
 		E130526412FABDEE00906CA8 /* ServiceDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E130526312FABDEE00906CA8 /* ServiceDetailsController.m */; };
 		E1D3354E12EB399100A01A03 /* HTTPNagiosClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D3354D12EB399100A01A03 /* HTTPNagiosClient.m */; };
 		E1D3358312EB48EF00A01A03 /* TacController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D3358112EB48EF00A01A03 /* TacController.m */; };
-		E1D3358412EB48EF00A01A03 /* TacController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1D3358212EB48EF00A01A03 /* TacController.xib */; };
+		E1DCD62713058670003D6179 /* TacController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1DCD62613058670003D6179 /* TacController.xib */; };
+		E1FBE116130573130038129D /* TacOverviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBE114130573130038129D /* TacOverviewController.m */; };
+		E1FBE117130573130038129D /* TacOverviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FBE115130573130038129D /* TacOverviewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +54,10 @@
 		E1D3354D12EB399100A01A03 /* HTTPNagiosClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPNagiosClient.m; path = Classes/HTTPNagiosClient.m; sourceTree = "<group>"; };
 		E1D3358012EB48EF00A01A03 /* TacController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TacController.h; path = Classes/TacController.h; sourceTree = "<group>"; };
 		E1D3358112EB48EF00A01A03 /* TacController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TacController.m; path = Classes/TacController.m; sourceTree = "<group>"; };
-		E1D3358212EB48EF00A01A03 /* TacController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TacController.xib; path = Classes/TacController.xib; sourceTree = "<group>"; };
+		E1DCD62613058670003D6179 /* TacController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TacController.xib; sourceTree = "<group>"; };
+		E1FBE113130573130038129D /* TacOverviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacOverviewController.h; sourceTree = "<group>"; };
+		E1FBE114130573130038129D /* TacOverviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacOverviewController.m; sourceTree = "<group>"; };
+		E1FBE115130573130038129D /* TacOverviewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TacOverviewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +77,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E12948CD12F4534B009FF7BD /* Models */,
+				E12948CC12F4533B009FF7BD /* Controllers */,
 				1D3623240D0F684500981E51 /* iMonitorAppDelegate.h */,
 				1D3623250D0F684500981E51 /* iMonitorAppDelegate.m */,
 			);
@@ -89,11 +96,10 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				E12948CD12F4534B009FF7BD /* Models */,
-				E12948CC12F4533B009FF7BD /* Controllers */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = CustomTemplate;
@@ -112,9 +118,10 @@
 			isa = PBXGroup;
 			children = (
 				E129495D12F46551009FF7BD /* Images */,
-				E1D3358212EB48EF00A01A03 /* TacController.xib */,
+				E1FBE115130573130038129D /* TacOverviewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* iMonitor-Info.plist */,
+				E1DCD62613058670003D6179 /* TacController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -132,18 +139,12 @@
 		E12948CC12F4533B009FF7BD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E129497012F468D4009FF7BD /* DetailControllers */,
-				E1D3358012EB48EF00A01A03 /* TacController.h */,
-				E1D3358112EB48EF00A01A03 /* TacController.m */,
-				E12948CE12F45376009FF7BD /* HotesController.h */,
-				E12948CF12F45376009FF7BD /* HotesController.m */,
-				E12948D112F45380009FF7BD /* ServicesController.h */,
-				E12948D212F45380009FF7BD /* ServicesController.m */,
-				29B97323FDCFA39411CA2CEA /* Frameworks */,
-				E1278A751302A165009E44E0 /* TacListController.h */,
-				E1278A761302A165009E44E0 /* TacListController.m */,
+				E1FBE11A130573540038129D /* Services */,
+				E1FBE119130573420038129D /* Hotes */,
+				E1FBE118130573200038129D /* Tac */,
 			);
 			name = Controllers;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		E12948CD12F4534B009FF7BD /* Models */ = {
@@ -153,6 +154,7 @@
 				E1D3354D12EB399100A01A03 /* HTTPNagiosClient.m */,
 			);
 			name = Models;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		E129495D12F46551009FF7BD /* Images */ = {
@@ -164,15 +166,39 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
-		E129497012F468D4009FF7BD /* DetailControllers */ = {
+		E1FBE118130573200038129D /* Tac */ = {
+			isa = PBXGroup;
+			children = (
+				E1278A751302A165009E44E0 /* TacListController.h */,
+				E1278A761302A165009E44E0 /* TacListController.m */,
+				E1D3358012EB48EF00A01A03 /* TacController.h */,
+				E1D3358112EB48EF00A01A03 /* TacController.m */,
+				E1FBE113130573130038129D /* TacOverviewController.h */,
+				E1FBE114130573130038129D /* TacOverviewController.m */,
+			);
+			name = Tac;
+			sourceTree = "<group>";
+		};
+		E1FBE119130573420038129D /* Hotes */ = {
 			isa = PBXGroup;
 			children = (
 				E129497B12F46979009FF7BD /* HoteDetailsController.h */,
 				E129497C12F46979009FF7BD /* HoteDetailsController.m */,
+				E12948CE12F45376009FF7BD /* HotesController.h */,
+				E12948CF12F45376009FF7BD /* HotesController.m */,
+			);
+			name = Hotes;
+			sourceTree = "<group>";
+		};
+		E1FBE11A130573540038129D /* Services */ = {
+			isa = PBXGroup;
+			children = (
 				E130526212FABDEE00906CA8 /* ServiceDetailsController.h */,
 				E130526312FABDEE00906CA8 /* ServiceDetailsController.m */,
+				E12948D112F45380009FF7BD /* ServicesController.h */,
+				E12948D212F45380009FF7BD /* ServicesController.m */,
 			);
-			name = DetailControllers;
+			name = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,9 +251,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				E1D3358412EB48EF00A01A03 /* TacController.xib in Resources */,
 				E129495F12F46568009FF7BD /* check.png in Resources */,
 				E129496112F46572009FF7BD /* cross.png in Resources */,
+				E1FBE117130573130038129D /* TacOverviewController.xib in Resources */,
+				E1DCD62713058670003D6179 /* TacController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +274,7 @@
 				E129497D12F46979009FF7BD /* HoteDetailsController.m in Sources */,
 				E130526412FABDEE00906CA8 /* ServiceDetailsController.m in Sources */,
 				E1278A771302A165009E44E0 /* TacListController.m in Sources */,
+				E1FBE116130573130038129D /* TacOverviewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

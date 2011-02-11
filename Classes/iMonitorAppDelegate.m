@@ -23,7 +23,6 @@
 	
 	TacController *tac = [[TacController alloc] initWithNibName:@"TacController" bundle:nil];
 	
-	
     HotesController *hotes = [[HotesController alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *hotesNav = [[UINavigationController alloc]initWithRootViewController:hotes];
     

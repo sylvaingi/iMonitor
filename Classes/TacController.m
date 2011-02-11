@@ -12,41 +12,23 @@
 
 @implementation TacController
 
-
-@synthesize hostProgress;
-@synthesize hostStatusUp;
-@synthesize hostStatusDown;
-@synthesize hostStatusUnreachable;
-@synthesize hostStatusPending;
-
-- (void) setUpHostUpNumber:(int)nb{
-	self.hostStatusUp.text = [NSString stringWithFormat:@"Ok:%d",nb];
-}
-
-- (void) setDownHostNumber:(int)nb{
-	self.hostStatusDown.text = [NSString stringWithFormat:@"Down:%d",nb];
-}
-
-- (void) setUnreachableHostNumber:(int)nb{
-	self.hostStatusUnreachable.text = [NSString stringWithFormat:@"Unreachable:%d",nb];
-}
-
-- (void) setPendingHostNumber:(int)nb{
-	self.hostStatusPending.text = [NSString stringWithFormat:@"Pending\n%d",nb];
-}
-
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-
+// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
 		self.tabBarItem=[[UITabBarItem alloc]initWithTitle:@"Tactical status" image:nil tag:0];
         self.title=@"Tactical status";
 		
+		tacOverview = [[[TacOverviewController alloc] initWithNibName:@"TacOverviewController" bundle:nil] retain];
+		tacOverview.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 150);
+		[self.view addSubview:tacOverview.view];
+		
+		tacList = [[[TacListController alloc] initWithStyle:UITableViewStylePlain] retain];
+		tacList.view.frame = CGRectMake(0, 150, self.view.frame.size.width, self.view.frame.size.height-150);
+		[self.view addSubview:tacList.view];
     }
     return self;
 }
-
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -61,24 +43,26 @@
 }
 
 - (void)refreshTac{
-	HTTPNagiosClient* client = [[HTTPNagiosClient alloc] init];
+	HTTPNagiosClient* hostClient = [[HTTPNagiosClient alloc] init];
+	[hostClient sendRequest:@"cmd=2" delegate:self action:@selector(didReceiveHostData:)];
+	[hostClient release];
 	
-	[client sendRequest:@"cmd=2" delegate:self action:@selector(didReceiveNagiosData:)];
-	
-	[client release];
+	HTTPNagiosClient* serviceClient = [[HTTPNagiosClient alloc] init];
+	[serviceClient sendRequest:@"cmd=3" delegate:self action:@selector(didReceiveServiceData:)];
+	[serviceClient release];
 }
 
--(void) didReceiveNagiosData:(NSArray*)responseData{
-	NSArray* hosts = responseData;
-	int up = 0;
-	int down = 0;
-	int unreach = 0;
-	int pending = 0;
+-(void) didReceiveHostData:(NSArray*)responseData{
 	
-	for (NSDictionary* host in hosts) {
+	/*NSMutableDictionary *hostStatus =[NSMutableDictionary dictionary];
+
+	for (NSDictionary* host in nagiosData) {
+		
+		[hostStatus objectForKey:[host objectForKey:@"current_state"]];
+		
 		switch ([[host objectForKey:@"current_state"] intValue]) {
 			case 0:
-				up++;
+				
 				break;
 			case 1:
 				down++;
@@ -94,18 +78,15 @@
 		} 
 	}
 	
-	[self setUpHostUpNumber:up];
-	[self setDownHostNumber:down];
-	[self setUnreachableHostNumber:unreach];
-	[self setPendingHostNumber:pending];
-	
-	self.hostProgress.progress = ((float)up)/[hosts count];
+	[tacOverview refreshWithHostData : hostStatus];
+	[tacList refreshWithHostData : hostStatus];*/
 }
-
+-(void) didReceiveServiceData:(NSArray*)responseData{
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Overriden to allow any orientation.
-    return YES;
+    return NO;
 }
 
 
@@ -123,11 +104,10 @@
     // e.g. self.myOutlet = nil;
 }
 
--(IBAction)showHosts:(id)sender{
-}
-
 - (void)dealloc {
     [super dealloc];
+	[tacList release];
+	[tacOverview release];
 }
 
 
