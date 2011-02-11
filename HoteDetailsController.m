@@ -48,7 +48,7 @@
 -(void) refreshHostDetails{
 	HTTPNagiosClient* client = [[HTTPNagiosClient alloc] init];
 	
-	[client sendRequest:[NSString stringWithFormat:@"cmd=5&host=%@",hostName] delegate:self action:@selector(didReceiveNagiosData)];
+	[client sendRequest:[NSString stringWithFormat:@"cmd=5&host=%@",hostName] delegate:self action:@selector(didReceiveNagiosData:)];
 	
 	[client release];
 }

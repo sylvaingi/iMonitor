@@ -19,7 +19,7 @@
 	
 	//Create the request and show the network indicator
 	NSURLRequest *theRequest=[NSURLRequest requestWithURL:
-							  [NSURL URLWithString:[@"http://134.214.221.144/inag.php?key=key&" stringByAppendingString:command]]];
+							  [NSURL URLWithString:[@"http://134.214.223.61/inag.php?key=key&" stringByAppendingString:command]]];
 	NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
