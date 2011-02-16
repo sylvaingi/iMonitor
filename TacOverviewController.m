@@ -7,6 +7,7 @@
 //
 
 #import "TacOverviewController.h"
+#import "NagiosStatus.h"
 
 
 @implementation TacOverviewController
@@ -14,8 +15,12 @@
 @synthesize hostProgress;
 @synthesize hostStatusUp;
 @synthesize hostStatusDown;
-@synthesize hostStatusUnreachable;
-@synthesize hostStatusPending;
+
+@synthesize serviceProgress;
+@synthesize serviceStatusOk;
+@synthesize serviceStatusCritical;
+@synthesize serviceStatusWarning;
+@synthesize serviceStatusPending;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 
@@ -56,36 +61,29 @@
     // e.g. self.myOutlet = nil;
 }
 
--(void) refreshWithData:(NSArray*)nagiosData {
-	int up = 0;
-	int down = 0;
-	int unreach = 0;
-	int pending = 0;
+-(void) refreshWithHostData:(NagiosStatus*)nagiosData {
+
+	int up = [[nagiosData.resultsByStatus objectForKey:[NSNumber numberWithInt:HOST_UP]] count];
+	int down = [[nagiosData.resultsByStatus objectForKey:[NSNumber numberWithInt:HOST_DOWN]] count];
 	
-	for (NSDictionary* host in nagiosData) {
-		switch ([[host objectForKey:@"current_state"] intValue]) {
-			case 0:
-				up++;
-				break;
-			case 1:
-				down++;
-				break;
-			case 2:
-				unreach++;
-				break;
-			case 3:
-				pending++;
-				break;
-			default:
-				break;
-		} 
-	}
+	self.hostStatusUp.text = [NSString stringWithFormat:@"%d",up];
+	self.hostStatusDown.text = [NSString stringWithFormat:@"%d",down];
+	self.hostProgress.progress = ((float)up)/((float)(up+down));
+}
+
+-(void) refreshWithServiceData:(NagiosStatus*)nagiosData {
 	
-	self.hostStatusUp.text = [NSString stringWithFormat:@"Ok:%d",up];
-	self.hostStatusDown.text = [NSString stringWithFormat:@"Down:%d",down];
-	self.hostStatusUnreachable.text = [NSString stringWithFormat:@"Unreachable:%d",unreach];
-	self.hostStatusPending.text = [NSString stringWithFormat:@"Pending\n%d",pending];
-	self.hostProgress.progress = ((float)up)/[nagiosData count];
+	int up = [[nagiosData.resultsByStatus objectForKey:[NSNumber numberWithInt:SERVICE_UP]] count];
+	int pending = [[nagiosData.resultsByStatus objectForKey:[NSNumber numberWithInt:SERVICE_PENDING]] count];
+	int warning = [[nagiosData.resultsByStatus objectForKey:[NSNumber numberWithInt:SERVICE_WARNING]] count];
+	int critical = [[nagiosData.resultsByStatus objectForKey:[NSNumber numberWithInt:SERVICE_CRITICAL]] count];
+	
+	self.serviceStatusOk.text = [NSString stringWithFormat:@"%d",up];
+	self.serviceStatusPending.text = [NSString stringWithFormat:@"%d",pending];
+	self.serviceStatusWarning.text = [NSString stringWithFormat:@"%d",warning];
+	self.serviceStatusCritical.text = [NSString stringWithFormat:@"%d",critical];
+	
+	self.serviceProgress.progress = ((float)up)/((float)(up+pending+warning+critical));
 }
 
 - (void)dealloc {

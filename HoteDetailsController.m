@@ -8,6 +8,7 @@
 
 #import "HoteDetailsController.h"
 #import "HTTPNagiosClient.h"
+#import "NagiosStatus.h"
 
 
 @implementation HoteDetailsController
@@ -53,8 +54,8 @@
 	[client release];
 }
 
--(void) didReceiveNagiosData:(NSArray*)responseData{
-	self.hostDetails = [responseData objectAtIndex:0];
+-(void) didReceiveNagiosData:(NagiosStatus*)responseData{
+	self.hostDetails = [responseData.results objectAtIndex:0];
 	[self.tableView reloadData];
 }
 /*
@@ -158,15 +159,15 @@
 					}
 					break;
 				case 2:
-					cell.textLabel.text = @"Status detail";
+					cell.textLabel.text = @"Détail statut";
 					cell.detailTextLabel.text = [self.hostDetails objectForKey:@"plugin_output"];
 					break;
 				case 3:
-					cell.textLabel.text = @"Performance data";
+					cell.textLabel.text = @"Performance";
 					cell.detailTextLabel.text = [self.hostDetails objectForKey:@"performance_data"];
 					break;
 				case 4:
-					cell.textLabel.text = @"Current attempt";
+					cell.textLabel.text = @"Tentative";
 					cell.detailTextLabel.text = [NSString stringWithFormat:@"%@/%@",[self.hostDetails objectForKey:@"current_attempt"],
 												 [self.hostDetails objectForKey:@"max_attempts"]];
 			}

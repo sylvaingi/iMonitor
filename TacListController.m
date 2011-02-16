@@ -7,9 +7,12 @@
 //
 
 #import "TacListController.h"
-
+#import "NagiosStatus.h"
 
 @implementation TacListController
+
+@synthesize hostsStatus;
+@synthesize servicesStatus;
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
@@ -35,8 +38,13 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 3;
+	switch (section) {
+		case 0:
+			return [hostsStatus count];
+		case 1:
+			return [servicesStatus count];
+	}
+	return 0;
 }
 
 
@@ -47,11 +55,25 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
+	
+	switch (indexPath.section) {
+		case 0:{
+			NSDictionary* host = [hostsStatus objectAtIndex:indexPath.row];
+			cell.textLabel.text=[NSString stringWithFormat:@"Hôte - %@", [host objectForKey:@"host_name"]];
+			cell.detailTextLabel.text = [host objectForKey:@"plugin_output"];
+			break;
+		}
+		case 1:{
+			NSDictionary* service = [servicesStatus objectAtIndex:indexPath.row];
+			cell.textLabel.text=[NSString stringWithFormat:@"Service - %@ @ %@", [service objectForKey:@"service_description"], [service objectForKey:@"host_name"]];
+			cell.detailTextLabel.text = [service objectForKey:@"plugin_output"];
+			break;
+		}
+	}
     
-cell.textLabel.text = @"test";    
-    return cell;
+	return cell;
 }
 
 
@@ -102,7 +124,28 @@ cell.textLabel.text = @"test";
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
--(void) refreshWithData:(NSArray*)nagiosData {
+-(void) refreshWithHostData:(NagiosStatus*)nagiosData {
+	//Keep only down hosts
+	self.hostsStatus = [nagiosData.resultsByStatus objectForKey:[NSNumber numberWithInt:HOST_DOWN]];
+	[self.tableView reloadData];
+}
+
+-(void) refreshWithServiceData:(NagiosStatus*)nagiosData {
+	//Concatenate the warning and critical statuses array
+	NSMutableArray *servicesProblems = [[NSMutableArray alloc] init];
+	
+	NSArray* statusCriticalServices = [nagiosData.resultsByStatus objectForKey:[NSNumber numberWithInt:SERVICE_CRITICAL]];
+	if (statusCriticalServices != nil) {
+		[servicesProblems addObjectsFromArray:statusCriticalServices];
+	}
+	
+	NSArray* statusWarningServices = [nagiosData.resultsByStatus objectForKey:[NSNumber numberWithInt:SERVICE_WARNING]];
+	if (statusWarningServices != nil) {
+		[servicesProblems addObjectsFromArray:statusWarningServices];
+	}
+
+	self.servicesStatus = servicesProblems;
+	
 	[self.tableView reloadData];
 }
 

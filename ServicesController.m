@@ -8,7 +8,7 @@
 
 #import "ServicesController.h"
 #import "HTTPNagiosClient.h"
-#import "ServiceDetailsController.h"
+#import "NagiosStatus.h"
 
 @implementation ServicesController
 
@@ -23,8 +23,7 @@
     self = [super initWithStyle:style];
     if (self) {
         self.title = @"Services";
-		self.services = [NSDictionary dictionary];
-		servicesNames = [[NSArray alloc]init];
+		self.tabBarItem=[[UITabBarItem alloc]initWithTitle:@"Services" image:[UIImage imageNamed:@"network"] tag:0];
     }
     return self;
 }
@@ -53,8 +52,8 @@
 	[client release];
 }
 
--(void) didReceiveNagiosData:(NSArray*)responseData{
-	NSArray *servicesArray = responseData;
+-(void) didReceiveNagiosData:(NagiosStatus*)responseData{
+	NSArray *servicesArray = responseData.results;
 	NSMutableDictionary* actualServices = [[NSMutableDictionary alloc] init];
 	for (NSDictionary* service in servicesArray) {
 		NSLog(@"%@",service);

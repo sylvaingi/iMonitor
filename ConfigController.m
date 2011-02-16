@@ -1,63 +1,40 @@
 //
-//  HotesController.m
+//  ConfigController.m
 //  iMonitor
 //
-//  Created by Robert Zboub on 29/01/11.
+//  Created by Sylvain Gizard on 14/02/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "HotesController.h"
-#import "HTTPNagiosClient.h"
-#import "NagiosStatus.h"
+#import "ConfigController.h"
 
-@implementation HotesController
 
-@synthesize hotes;
+@implementation ConfigController
+
 
 #pragma mark -
 #pragma mark Initialization
 
 
 - (id)initWithStyle:(UITableViewStyle)style {
+    // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
     self = [super initWithStyle:style];
     if (self) {
-        self.title = @"Hôtes";
-		self.tabBarItem=[[UITabBarItem alloc]initWithTitle:@"Hôtes" image:[UIImage imageNamed:@"dashboard"] tag:0];
-		self.hotes = [[NSArray alloc] init];
+        self.title = @"Configuration";
+		self.tabBarItem=[[UITabBarItem alloc]initWithTitle:@"Configuration" image:[UIImage imageNamed:@"gear"] tag:0];
     }
     return self;
 }
 
 
-
 #pragma mark -
 #pragma mark View lifecycle
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[self refreshHostStatus];
-	
- 	UIBarButtonItem *refreshButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh 
-																					target:self 
-																					action:@selector(refreshHostStatus)] autorelease];									  
-	self.navigationItem.rightBarButtonItem = refreshButton;
 }
 
 
-- (void)refreshHostStatus{
-	HTTPNagiosClient* client = [[HTTPNagiosClient alloc] init];
-	
-	[client sendRequest:@"cmd=2" delegate:self action:@selector(didReceiveNagiosData:)];
-	
-	[client release];
-}
-
--(void) didReceiveNagiosData:(NagiosStatus*)responseData{
-	self.hotes = responseData.results;
-	[self.tableView reloadData];
-}
-	
 /*
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -91,52 +68,91 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [hotes count];
+    return 1;
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
     }
-    
-    NSDictionary* hote = [hotes objectAtIndex:indexPath.row];
-	
-	cell.textLabel.text = [hote objectForKey:@"host_name"];
-	cell.detailTextLabel.text = [hote objectForKey:@"plugin_output"];
-    
-	UIImage* statusIcon;
-	if([[hote objectForKey:@"current_state"] isEqualToString:@"0"])
-		statusIcon = [UIImage imageNamed:@"check.png"];
-	else {
-		statusIcon = [UIImage imageNamed:@"cross.png"];
+/*
+	switch (indexPath.row) {
+		case 0:
+			cell.textLabel.text = @"Adresse IP";
+			break;
+		case 1:
+			cell.textLabel.text = @"Port";
+			break;
 	}
-	cell.imageView.image = statusIcon;
+*/
+    CGRect frame =CGRectMake(5 ,10 , 320, 44);
+	UITextField *textField = [[UITextField alloc]initWithFrame:frame];
+	[textField setBorderStyle:UITextBorderStyleNone];
+	textField.delegate=self;
+	switch (indexPath.section) {
+        case 0:
+			textField.tag=0;
+			textField.text=[[NSUserDefaults standardUserDefaults] objectForKey:@"serverAddress"];
+			break;
+        case 1:
+			textField.tag=1;
+			textField.text=[[NSUserDefaults standardUserDefaults] objectForKey:@"serverPort"];
+			break;
+        default:
+			break;
+	}
+	[cell.contentView addSubview:textField];
+	[textField release];
+	cell.selectionStyle=UITableViewCellSelectionStyleNone;
 
-	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	
     return cell;
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
+	switch (section) {
+		case 0:
+			return @"Adresse IP ou URL du serveur Nagios";
+		case 1:
+			return @"Port d'écoute du serveur Nagios";
+		default:
+			return @"Default";
+	}
+}
 
-/*
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+	switch (textField.tag) {
+		case 0:
+			[[NSUserDefaults standardUserDefaults] setObject:textField.text forKey:@"serverAddress"];
+			NSLog([NSString stringWithFormat:@"IP changed to : %@",textField.text]);
+			break;
+		case 1:
+			[[NSUserDefaults standardUserDefaults] setObject:textField.text forKey:@"serverPort"];
+			NSLog([NSString stringWithFormat:@"Port changed to : %@",textField.text]);
+			break;
+		default:
+			break;
+	}
+	
+}
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
+
 
 
 /*
@@ -174,10 +190,7 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-	NSString* host = [[self.hotes objectAtIndex:indexPath.row] objectForKey:@"host_name"] ;
-	HoteDetailsController* controller = [[[HoteDetailsController alloc] initWithStyle:UITableViewStyleGrouped hostName:host] autorelease];
-	[self.navigationController pushViewController:controller animated:YES];
+	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
@@ -199,7 +212,6 @@
 
 - (void)dealloc {
     [super dealloc];
-	[hotes release];
 }
 
 

@@ -8,6 +8,7 @@
 
 #import "TacController.h"
 #import "HTTPNagiosClient.h"
+#import "NagiosStatus.h"
 
 
 @implementation TacController
@@ -16,15 +17,15 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-		self.tabBarItem=[[UITabBarItem alloc]initWithTitle:@"Tactical status" image:nil tag:0];
+		self.tabBarItem=[[UITabBarItem alloc]initWithTitle:@"Tactical status" image:[UIImage imageNamed:@"radar"] tag:0];
         self.title=@"Tactical status";
 		
 		tacOverview = [[[TacOverviewController alloc] initWithNibName:@"TacOverviewController" bundle:nil] retain];
-		tacOverview.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 150);
+		tacOverview.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 160);
 		[self.view addSubview:tacOverview.view];
 		
 		tacList = [[[TacListController alloc] initWithStyle:UITableViewStylePlain] retain];
-		tacList.view.frame = CGRectMake(0, 150, self.view.frame.size.width, self.view.frame.size.height-150);
+		tacList.view.frame = CGRectMake(0, 160, self.view.frame.size.width, self.view.frame.size.height-160);
 		[self.view addSubview:tacList.view];
     }
     return self;
@@ -52,36 +53,14 @@
 	[serviceClient release];
 }
 
--(void) didReceiveHostData:(NSArray*)responseData{
-	
-	/*NSMutableDictionary *hostStatus =[NSMutableDictionary dictionary];
-
-	for (NSDictionary* host in nagiosData) {
-		
-		[hostStatus objectForKey:[host objectForKey:@"current_state"]];
-		
-		switch ([[host objectForKey:@"current_state"] intValue]) {
-			case 0:
-				
-				break;
-			case 1:
-				down++;
-				break;
-			case 2:
-				unreach++;
-				break;
-			case 3:
-				pending++;
-				break;
-			default:
-				break;
-		} 
-	}
-	
-	[tacOverview refreshWithHostData : hostStatus];
-	[tacList refreshWithHostData : hostStatus];*/
+-(void) didReceiveHostData:(NagiosStatus*)nagiosData{
+	[tacOverview refreshWithHostData : nagiosData];
+	[tacList refreshWithHostData : nagiosData];
 }
--(void) didReceiveServiceData:(NSArray*)responseData{
+
+-(void) didReceiveServiceData:(NagiosStatus*)nagiosData{
+	[tacOverview refreshWithServiceData : nagiosData];
+	[tacList refreshWithServiceData : nagiosData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

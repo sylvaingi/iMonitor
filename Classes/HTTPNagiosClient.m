@@ -7,9 +7,11 @@
 //
 
 #import "HTTPNagiosClient.h"
+#import "NagiosStatus.h"
 
 
 @implementation HTTPNagiosClient
+
 
 - (void)sendRequest:(NSString*)command delegate:(id)obj action:(SEL)successCallback{
 	NSLog(@"Sending request to Nagios API");
@@ -17,9 +19,14 @@
 	delegate = obj;
 	successAction = successCallback;
 	
+	NSString* serverAddress = [[NSUserDefaults standardUserDefaults] objectForKey:@"serverAddress"];
+	NSString* serverPort = [[NSUserDefaults standardUserDefaults] objectForKey:@"serverPort"];
+	NSString* urlString = [NSString stringWithFormat:@"http://%@:%@/inag.php?key=key&%@",serverAddress,serverPort,command];
+	
+	NSLog(urlString);
+	
 	//Create the request and show the network indicator
-	NSURLRequest *theRequest=[NSURLRequest requestWithURL:
-							  [NSURL URLWithString:[@"http://134.214.223.61/inag.php?key=key&" stringByAppendingString:command]]];
+	NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
 	NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -80,12 +87,16 @@
 	NSLog(@"Received response :\n %@",processedComponents);
 	
 	//Send the success message to the delegate
-	[delegate performSelector:successAction withObject:processedComponents];
+	
+	NagiosStatus* nStatus = [[[NagiosStatus alloc] initWithNagiosData:processedComponents] autorelease];
+	
+	[delegate performSelector:successAction withObject:nStatus];
 	
 	//Cleanup
 	[response release];
     [connection release];
     [receivedData release];
+
 }
 
 @end

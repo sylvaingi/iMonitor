@@ -10,6 +10,7 @@
 #import "TacController.h"
 #import "ServicesController.h"
 #import "HotesController.h"
+#import "ConfigController.h"
 
 @implementation iMonitorAppDelegate
 
@@ -22,6 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {  
 	
 	TacController *tac = [[TacController alloc] initWithNibName:@"TacController" bundle:nil];
+	UINavigationController *tacNav = [[UINavigationController alloc] initWithRootViewController:tac];
 	
     HotesController *hotes = [[HotesController alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *hotesNav = [[UINavigationController alloc]initWithRootViewController:hotes];
@@ -29,8 +31,11 @@
 	ServicesController *services = [[ServicesController alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *servicesNav = [[UINavigationController alloc]initWithRootViewController:services];
 	
+	ConfigController *config = [[ConfigController alloc] initWithStyle:UITableViewStyleGrouped];
+	UINavigationController *configNav = [[UINavigationController alloc] initWithRootViewController:config];
+	
 	UITabBarController* tabController =[[UITabBarController alloc] init];
-	tabController.viewControllers=[NSArray arrayWithObjects:tac,hotesNav,servicesNav,nil];
+	tabController.viewControllers=[NSArray arrayWithObjects:tacNav,hotesNav,servicesNav,configNav,nil];
 	
 	[self.window addSubview:tabController.view];
 	

@@ -6,7 +6,7 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 
 @interface HTTPNagiosClient : NSObject {
@@ -14,7 +14,6 @@
 	id delegate;
 	SEL successAction;
 }
-
 
 - (void)sendRequest:(NSString*)command delegate:(id)obj action:(SEL)successCallback;
 

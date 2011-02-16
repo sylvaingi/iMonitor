@@ -7,12 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NagiosStatus.h"
 
 
 @interface TacListController : UITableViewController{
-
+	NSArray* hostsStatus;
+	NSArray* servicesStatus;
 }
 
--(void) refreshWithData:(NSArray*)nagiosData;
+@property(nonatomic,retain) NSArray* hostsStatus;
+@property(nonatomic,retain) NSArray* servicesStatus;
+
+-(void) refreshWithHostData:(NagiosStatus*)nagiosData;
+-(void) refreshWithServiceData:(NagiosStatus*)nagiosData;
 
 @end

@@ -7,8 +7,6 @@
 //
 
 #import "ServiceDetailsController.h"
-#import "HTTPNagiosClient.h"
-
 
 @implementation ServiceDetailsController
 
@@ -109,15 +107,15 @@
 	switch (indexPath.row) {
 		case 0:
 			cell.detailTextLabel.text = [service objectForKey:@"plugin_output"];
-			cell.textLabel.text = @"Plugin output";
+			cell.textLabel.text = @"Détail statut";
 			break;
 		case 1:
-			cell.textLabel.text = @"Last check";
+			cell.textLabel.text = @"Dernier test";
 			NSDate* lastCheck = [NSDate dateWithTimeIntervalSince1970: [[service objectForKey:@"last_check"] intValue]];
 			cell.detailTextLabel.text = [dateFormatter stringFromDate:lastCheck];
 			break;
 		case 2:
-			cell.textLabel.text = @"Last change";
+			cell.textLabel.text = @"Dernier changement";
 			NSDate* lastChange = [NSDate dateWithTimeIntervalSince1970: [[service objectForKey:@"last_state_change"] intValue]];
 			cell.detailTextLabel.text = [dateFormatter stringFromDate:lastChange];
 			break;

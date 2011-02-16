@@ -23,6 +23,13 @@
 		E1D3354E12EB399100A01A03 /* HTTPNagiosClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D3354D12EB399100A01A03 /* HTTPNagiosClient.m */; };
 		E1D3358312EB48EF00A01A03 /* TacController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D3358112EB48EF00A01A03 /* TacController.m */; };
 		E1DCD62713058670003D6179 /* TacController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1DCD62613058670003D6179 /* TacController.xib */; };
+		E1FA5C3E130986D600C72AC3 /* ConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FA5C3D130986D600C72AC3 /* ConfigController.m */; };
+		E1FA5D5B130B189D00C72AC3 /* NagiosStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FA5D5A130B189D00C72AC3 /* NagiosStatus.m */; };
+		E1FA5E88130B556000C72AC3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FA5E87130B556000C72AC3 /* Icon.png */; };
+		E1FA5E8F130B560000C72AC3 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FA5E8B130B560000C72AC3 /* gear.png */; };
+		E1FA5E90130B560000C72AC3 /* network.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FA5E8C130B560000C72AC3 /* network.png */; };
+		E1FA5E91130B560000C72AC3 /* radar.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FA5E8D130B560000C72AC3 /* radar.png */; };
+		E1FA5E92130B560000C72AC3 /* dashboard.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FA5E8E130B560000C72AC3 /* dashboard.png */; };
 		E1FBE116130573130038129D /* TacOverviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBE114130573130038129D /* TacOverviewController.m */; };
 		E1FBE117130573130038129D /* TacOverviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FBE115130573130038129D /* TacOverviewController.xib */; };
 /* End PBXBuildFile section */
@@ -55,6 +62,15 @@
 		E1D3358012EB48EF00A01A03 /* TacController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TacController.h; path = Classes/TacController.h; sourceTree = "<group>"; };
 		E1D3358112EB48EF00A01A03 /* TacController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TacController.m; path = Classes/TacController.m; sourceTree = "<group>"; };
 		E1DCD62613058670003D6179 /* TacController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TacController.xib; sourceTree = "<group>"; };
+		E1FA5C3C130986D600C72AC3 /* ConfigController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigController.h; sourceTree = "<group>"; };
+		E1FA5C3D130986D600C72AC3 /* ConfigController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigController.m; sourceTree = "<group>"; };
+		E1FA5D59130B189D00C72AC3 /* NagiosStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NagiosStatus.h; sourceTree = "<group>"; };
+		E1FA5D5A130B189D00C72AC3 /* NagiosStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NagiosStatus.m; sourceTree = "<group>"; };
+		E1FA5E87130B556000C72AC3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../../../../Downloads/Icon.png; sourceTree = SOURCE_ROOT; };
+		E1FA5E8B130B560000C72AC3 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = ../../../../Downloads/gear.png; sourceTree = SOURCE_ROOT; };
+		E1FA5E8C130B560000C72AC3 /* network.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = network.png; path = ../../../../Downloads/network.png; sourceTree = SOURCE_ROOT; };
+		E1FA5E8D130B560000C72AC3 /* radar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = radar.png; path = ../../../../Downloads/radar.png; sourceTree = SOURCE_ROOT; };
+		E1FA5E8E130B560000C72AC3 /* dashboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dashboard.png; path = ../../../../Downloads/dashboard.png; sourceTree = SOURCE_ROOT; };
 		E1FBE113130573130038129D /* TacOverviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacOverviewController.h; sourceTree = "<group>"; };
 		E1FBE114130573130038129D /* TacOverviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacOverviewController.m; sourceTree = "<group>"; };
 		E1FBE115130573130038129D /* TacOverviewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TacOverviewController.xib; sourceTree = "<group>"; };
@@ -117,6 +133,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E1FA5E87130B556000C72AC3 /* Icon.png */,
 				E129495D12F46551009FF7BD /* Images */,
 				E1FBE115130573130038129D /* TacOverviewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -139,8 +156,9 @@
 		E12948CC12F4533B009FF7BD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E1FBE11A130573540038129D /* Services */,
 				E1FBE119130573420038129D /* Hotes */,
+				E1FA5C331309855800C72AC3 /* Config */,
+				E1FBE11A130573540038129D /* Services */,
 				E1FBE118130573200038129D /* Tac */,
 			);
 			name = Controllers;
@@ -152,6 +170,8 @@
 			children = (
 				E1D3354C12EB399100A01A03 /* HTTPNagiosClient.h */,
 				E1D3354D12EB399100A01A03 /* HTTPNagiosClient.m */,
+				E1FA5D59130B189D00C72AC3 /* NagiosStatus.h */,
+				E1FA5D5A130B189D00C72AC3 /* NagiosStatus.m */,
 			);
 			name = Models;
 			path = ..;
@@ -160,10 +180,23 @@
 		E129495D12F46551009FF7BD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E1FA5E8B130B560000C72AC3 /* gear.png */,
+				E1FA5E8C130B560000C72AC3 /* network.png */,
+				E1FA5E8D130B560000C72AC3 /* radar.png */,
+				E1FA5E8E130B560000C72AC3 /* dashboard.png */,
 				E129496012F46572009FF7BD /* cross.png */,
 				E129495E12F46568009FF7BD /* check.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		E1FA5C331309855800C72AC3 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E1FA5C3C130986D600C72AC3 /* ConfigController.h */,
+				E1FA5C3D130986D600C72AC3 /* ConfigController.m */,
+			);
+			name = Config;
 			sourceTree = "<group>";
 		};
 		E1FBE118130573200038129D /* Tac */ = {
@@ -255,6 +288,11 @@
 				E129496112F46572009FF7BD /* cross.png in Resources */,
 				E1FBE117130573130038129D /* TacOverviewController.xib in Resources */,
 				E1DCD62713058670003D6179 /* TacController.xib in Resources */,
+				E1FA5E88130B556000C72AC3 /* Icon.png in Resources */,
+				E1FA5E8F130B560000C72AC3 /* gear.png in Resources */,
+				E1FA5E90130B560000C72AC3 /* network.png in Resources */,
+				E1FA5E91130B560000C72AC3 /* radar.png in Resources */,
+				E1FA5E92130B560000C72AC3 /* dashboard.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +313,8 @@
 				E130526412FABDEE00906CA8 /* ServiceDetailsController.m in Sources */,
 				E1278A771302A165009E44E0 /* TacListController.m in Sources */,
 				E1FBE116130573130038129D /* TacOverviewController.m in Sources */,
+				E1FA5C3E130986D600C72AC3 /* ConfigController.m in Sources */,
+				E1FA5D5B130B189D00C72AC3 /* NagiosStatus.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
