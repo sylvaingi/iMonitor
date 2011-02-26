@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HoteDetailsController.h"
 #import "NagiosStatus.h"
 
 

@@ -127,6 +127,7 @@
 -(void) refreshWithHostData:(NagiosStatus*)nagiosData {
 	//Keep only down hosts
 	self.hostsStatus = [nagiosData.resultsByStatus objectForKey:[NSNumber numberWithInt:HOST_DOWN]];
+	[UIApplication sharedApplication].applicationIconBadgeNumber = [hostsStatus count] + [servicesStatus count];
 	[self.tableView reloadData];
 }
 
@@ -145,7 +146,7 @@
 	}
 
 	self.servicesStatus = servicesProblems;
-	
+	[UIApplication sharedApplication].applicationIconBadgeNumber = [hostsStatus count] + [servicesStatus count];
 	[self.tableView reloadData];
 }
 
